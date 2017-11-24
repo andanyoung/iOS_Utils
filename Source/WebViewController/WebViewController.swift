@@ -162,8 +162,20 @@ class WebViewController: UIViewController {
             let cookiesFolderPath = libraryPath.appending("/Cookies")
             try? FileManager.default.removeItem(atPath: cookiesFolderPath)
         }
-        
-        //MBProgressHUD.showSuccess("清除缓存成功", to: nil)
+    }
+    
+    lazy var loadView = DYLoadingView()
+    
+    func showLoadView( _ isShow: Bool = true)  {
+        if isShow {
+            loadView.center = self.view.center
+            loadView.loadingType = .loading
+            self.view.addSubview(loadView)
+            loadView.loadingColor = progressTintColor
+        }else{
+            loadView.clear()
+            loadView.removeFromSuperview()
+        }
     }
 }
 
@@ -174,10 +186,12 @@ extension WebViewController: WKNavigationDelegate, WKUIDelegate{
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        showLoadView(  )
     }
     
     //当页面开始返回时调用
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        showLoadView( false )
         if let title = webView.title {
             
             self.title = title
