@@ -17,6 +17,10 @@ class DYLoadingView: UIView {
     var loadingType: LoadingType = .none {
         didSet{
             
+            if oldValue == loadingType {
+                return;
+            }
+            
             switch  loadingType {
             case .none:
                 clear()
@@ -37,19 +41,19 @@ class DYLoadingView: UIView {
     
     var failureColor: UIColor = UIColor.red
     
-    var loadingDuration: TimeInterval = 2.0
+    fileprivate var loadingDuration: TimeInterval = 2.0
     
-    let markLayerWidth: CGFloat = 48
+    fileprivate let markLayerWidth: CGFloat = 48
     
-    let markLayerHeight: CGFloat = 28
+    fileprivate let markLayerHeight: CGFloat = 28
     
-    var circleLayer: CAShapeLayer = CAShapeLayer()
+    fileprivate var circleLayer: CAShapeLayer = CAShapeLayer()
     
-    var markLayer: CAShapeLayer = CAShapeLayer()
+    fileprivate var markLayer: CAShapeLayer = CAShapeLayer()
     
     //MARK:- init
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
         setup()
     }
     
@@ -63,9 +67,22 @@ class DYLoadingView: UIView {
         layer.addSublayer(circleLayer)
     }
     
+    
     convenience init(loadType: LoadingType = .loading) {
         self.init(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
         self.loadingType = loadType
+    }
+    
+    func show(in  superView: UIView, isCenter: Bool = true, loadType: LoadingType = .loading){
+        
+        superView.addSubview(self)
+        self.loadingType = .loading
+        if isCenter {
+            var frame = self.frame
+            frame.origin.x = (superView.bounds.width - frame.width) / 2.0
+            frame.origin.y = (superView.bounds.height - frame.height) / 2.0
+            self.frame = frame
+        }
     }
     
     //MARK:- Animations
@@ -76,7 +93,7 @@ class DYLoadingView: UIView {
         markLayer.removeFromSuperlayer()
     }
     
-    func loading()  {
+    fileprivate func loading()  {
         
         clear()
         layer.addSublayer(circleLayer)
@@ -95,6 +112,7 @@ class DYLoadingView: UIView {
         strokeEndAnim.duration = loadingDuration
         strokeEndAnim.repeatCount = MAXFLOAT
         strokeEndAnim.autoreverses = true
+       // strokeEndAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
         circleLayer.add(strokeEndAnim, forKey: "strokeEndAnim")
 
         let zAnim = CABasicAnimation(keyPath: "transform.rotation.z")
@@ -106,7 +124,7 @@ class DYLoadingView: UIView {
         self.layer.add(zAnim, forKey: "zAnim")
     }
     
-    func success()  {
+    fileprivate func success()  {
         
         circleLayer.removeAllAnimations()
         layer.removeAllAnimations()
@@ -135,10 +153,11 @@ class DYLoadingView: UIView {
         strokeEndAnim.fromValue = NSNumber(value: 0)
         strokeEndAnim.toValue = NSNumber(value: 1)
         strokeEndAnim.duration = 0.5
+        strokeEndAnim.timingFunction = CAMediaTimingFunction(name: "easeOut")
         markLayer.add(strokeEndAnim, forKey: "strokeEndAnim")
     }
     
-    func failure(){
+    fileprivate func failure(){
         
         circleLayer.removeAllAnimations()
         layer.removeAllAnimations()
@@ -166,6 +185,30 @@ class DYLoadingView: UIView {
         strokeEndAnim.fromValue = NSNumber(value: 0)
         strokeEndAnim.toValue = NSNumber(value: 1)
         strokeEndAnim.duration = 0.5
-        markLayer.add(strokeEndAnim, forKey: "strokeEndAnim")
+        strokeEndAnim.timingFunction = CAMediaTimingFunction(name: "easeOut")
+        strokeEndAnim.delegate = self
+        strokeEndAnim.setValue("failure_strokeEndAnim", forKey: "animationKey")
+        markLayer.add(strokeEndAnim, forKey: "failure_strokeEndAnim")
+    }
+    
+    fileprivate func shake(){
+        
+        let shakeAnima = CABasicAnimation(keyPath: "transform.rotation.z")
+        shakeAnima.fromValue = NSNumber(value: -Float.pi / 12)
+        shakeAnima.toValue = NSNumber(value: Float.pi / 12)
+        shakeAnima.duration = 0.1
+        shakeAnima.repeatCount = 5
+        self.layer.add(shakeAnima, forKey: "shakeAnima")
+    }
+}
+
+extension DYLoadingView: CAAnimationDelegate{
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool){
+        
+        if let animationKey = anim.value(forKey: "animationKey") as? String ,
+            animationKey == "failure_strokeEndAnim" {
+            shake()
+        }
     }
 }
