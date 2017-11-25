@@ -89,51 +89,50 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jp0-vL-8fQ">
-                                <rect key="frame" x="171.5" y="453.5" width="31" height="30"/>
+                                <rect key="frame" x="157" y="538" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="f7u-1G-kQk"/>
+                                    <constraint firstAttribute="height" constant="60" id="xnp-oc-iuH"/>
+                                </constraints>
                                 <state key="normal" title="加载"/>
                                 <connections>
                                     <action selector="loadAction:" destination="3OM-fH-grp" eventType="touchUpInside" id="xTJ-G1-mWt"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPV-PV-NHM">
-                                <rect key="frame" x="48" y="568" width="31" height="30"/>
+                                <rect key="frame" x="48" y="538" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="P5V-sM-39K"/>
+                                    <constraint firstAttribute="height" constant="60" id="khX-u5-7e0"/>
+                                </constraints>
                                 <state key="normal" title="成功"/>
                                 <connections>
                                     <action selector="successAction:" destination="3OM-fH-grp" eventType="touchUpInside" id="fzN-Ps-OLG"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmO-NN-vO6">
-                                <rect key="frame" x="296" y="568" width="31" height="30"/>
+                                <rect key="frame" x="267" y="538" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Hej-v2-A8Q"/>
+                                    <constraint firstAttribute="width" constant="60" id="bP0-wY-wAr"/>
+                                </constraints>
                                 <state key="normal" title="失败"/>
                                 <connections>
                                     <action selector="failureAction:" destination="3OM-fH-grp" eventType="touchUpInside" id="O0a-Z5-dJv"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nw1-cF-ptD" customClass="DYLoadingView" customModule="UtilsDemo" customModuleProvider="target">
-                                <rect key="frame" x="147.5" y="293.5" width="80" height="80"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="IcN-mv-t7C"/>
-                                    <constraint firstAttribute="width" constant="80" id="POq-V5-IuT"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="nPV-PV-NHM" firstAttribute="centerY" secondItem="jp0-vL-8fQ" secondAttribute="centerY" id="0f6-VQ-Uhu"/>
                             <constraint firstItem="rzC-hP-Iwa" firstAttribute="bottom" secondItem="qmO-NN-vO6" secondAttribute="bottom" constant="69" id="27B-6Q-6xb"/>
                             <constraint firstItem="rzC-hP-Iwa" firstAttribute="bottom" secondItem="nPV-PV-NHM" secondAttribute="bottom" constant="69" id="LBN-f5-k1V"/>
                             <constraint firstItem="jp0-vL-8fQ" firstAttribute="centerX" secondItem="Yvs-hs-9S8" secondAttribute="centerX" id="Lwf-If-alg"/>
                             <constraint firstItem="rzC-hP-Iwa" firstAttribute="trailing" secondItem="qmO-NN-vO6" secondAttribute="trailing" constant="48" id="QOx-Ve-daz"/>
-                            <constraint firstItem="jp0-vL-8fQ" firstAttribute="top" secondItem="Nw1-cF-ptD" secondAttribute="bottom" constant="80" id="lgf-z3-vLQ"/>
-                            <constraint firstItem="Nw1-cF-ptD" firstAttribute="centerY" secondItem="Yvs-hs-9S8" secondAttribute="centerY" id="n5B-96-Fkg"/>
                             <constraint firstItem="nPV-PV-NHM" firstAttribute="leading" secondItem="rzC-hP-Iwa" secondAttribute="leading" constant="48" id="nbC-WK-Lkq"/>
-                            <constraint firstItem="Nw1-cF-ptD" firstAttribute="centerX" secondItem="Yvs-hs-9S8" secondAttribute="centerX" id="tzN-Vi-0vv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rzC-hP-Iwa"/>
                     </view>
-                    <connections>
-                        <outlet property="loadingView" destination="Nw1-cF-ptD" id="qPO-58-xJ4"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CgB-zS-FSV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

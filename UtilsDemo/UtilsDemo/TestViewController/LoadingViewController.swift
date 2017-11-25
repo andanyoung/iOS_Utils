@@ -9,26 +9,27 @@
 import UIKit
 
 class LoadingViewController: UIViewController {
-    @IBOutlet weak var loadingView: DYLoadingView!
+     var loadingView: DYLoadingView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        loadingView = DYLoadingView()
+        loadingView.show(in: self.view, isCenter: true, loadType: .loading)
     }
 
     @IBAction func loadAction(_ sender: Any) {
-        loadingView.loading()
+        loadingView.loadingType = .loading
     }
     
     @IBAction func successAction(_ sender: Any) {
         
-        loadingView.success()
+        loadingView.loadingType = .success
     }
     
     @IBAction func failureAction(_ sender: Any) {
         
-        loadingView.failure()
+        loadingView.loadingType = .failure
     }
     
 }
