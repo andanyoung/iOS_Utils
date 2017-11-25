@@ -11,7 +11,7 @@
 > 加载动画
 
 <div align=center>
-<img src="./Resource/DYLoadingView.gif" style="zoom:50%" alt="DYLoadingView。gif" />
+<img src="./Resource/DYLoadingView.gif" width="210" height="425" alt="DYLoadingView。gif" />
 </div>
 
 实列：
