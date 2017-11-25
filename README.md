@@ -10,7 +10,7 @@
 ## DYLoadingView
 > 加载动画
 
-![实列](./Resource/DYLoadingView.gif)
+<img src="./Resource/DYLoadingView.gif" style="zoom:50%" />
 
 实列：
 
