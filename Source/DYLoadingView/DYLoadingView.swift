@@ -85,6 +85,12 @@ class DYLoadingView: UIView {
         }
     }
     
+    func hide()  {
+        
+        self.loadingType = .none
+        self.removeFromSuperview()
+    }
+    
     //MARK:- Animations
     func clear() {
         
